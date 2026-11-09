@@ -3,6 +3,7 @@ import { BrowserProvider, Contract, JsonRpcProvider, isAddress } from "ethers";
 import abi from "./abi.json";
 import { CHAIN_ID, CHAIN_ID_HEX, CHAIN_PARAMS, CONTRACT_ADDRESS, EXPLORER, POLL_MS } from "./config.js";
 import { decryptMyDice, decryptVerdict, getFhevm, withRetry } from "./fhe.js";
+import { getEth, listWallets, onWalletsChanged, selectWallet } from "./wallet.js";
 
 const PHASES = ["Lobby", "Rolling", "Bidding", "Awaiting reveal", "Finished"];
 const FACE = ["", "⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
@@ -44,8 +45,9 @@ export default function App() {
 
   // -------------------------------------------------------------- wallet
   const syncWallet = useCallback(async () => {
-    if (!window.ethereum) return;
-    const provider = new BrowserProvider(window.ethereum);
+    const eth = getEth();
+    if (!eth) return;
+    const provider = new BrowserProvider(eth);
     const accounts = await provider.send("eth_accounts", []);
     const net = await provider.getNetwork();
     const ok = Number(net.chainId) === CHAIN_ID;
@@ -62,25 +64,41 @@ export default function App() {
     }
   }, []);
 
+  const [wallets, setWallets] = useState(() => listWallets());
+  const [picker, setPicker] = useState(false);
+  const [walletTick, setWalletTick] = useState(0);
+  useEffect(() => onWalletsChanged(setWallets), []);
+
   useEffect(() => {
     syncWallet();
-    if (!window.ethereum) return;
+    const eth = getEth();
+    if (!eth) return;
     const h = () => syncWallet();
-    window.ethereum.on?.("accountsChanged", h);
-    window.ethereum.on?.("chainChanged", h);
+    eth.on?.("accountsChanged", h);
+    eth.on?.("chainChanged", h);
     return () => {
-      window.ethereum.removeListener?.("accountsChanged", h);
-      window.ethereum.removeListener?.("chainChanged", h);
+      eth.removeListener?.("accountsChanged", h);
+      eth.removeListener?.("chainChanged", h);
     };
-  }, [syncWallet]);
+  }, [syncWallet, walletTick]);
 
-  async function connect() {
-    if (!window.ethereum) {
-      notify("MetaMask not found. Install it from metamask.io and reload.", "error");
+  function connect() {
+    const list = listWallets();
+    if (!list.length) {
+      notify("No wallet found. Install MetaMask, Rabby or another EVM wallet and reload.", "error");
       return;
     }
+    if (list.length === 1) return connectWith(list[0].info.rdns);
+    setPicker(true);
+  }
+
+  async function connectWith(rdns) {
+    setPicker(false);
+    const eth = selectWallet(rdns);
+    if (!eth) return notify("That wallet is not available.", "error");
+    setWalletTick((t) => t + 1);
     try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
+      await eth.request({ method: "eth_requestAccounts" });
       await switchToSepolia();
       await syncWallet();
     } catch (e) {
@@ -90,10 +108,10 @@ export default function App() {
 
   async function switchToSepolia() {
     try {
-      await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: CHAIN_ID_HEX }] });
+      await getEth().request({ method: "wallet_switchEthereumChain", params: [{ chainId: CHAIN_ID_HEX }] });
     } catch (e) {
       if (e?.code === 4902) {
-        await window.ethereum.request({ method: "wallet_addEthereumChain", params: [CHAIN_PARAMS] });
+        await getEth().request({ method: "wallet_addEthereumChain", params: [CHAIN_PARAMS] });
       } else throw e;
     }
   }
@@ -109,7 +127,7 @@ export default function App() {
   // -------------------------------------------------------------- tx helper
   async function send(label, fn) {
     if (!signerContract) return notify("Connect your wallet first.", "error");
-    if (!chainOk) return notify("Switch MetaMask to Sepolia.", "error");
+    if (!chainOk) return notify("Switch your wallet to Sepolia.", "error");
     setBusy(label);
     try {
       const tx = await fn(signerContract);
@@ -156,11 +174,26 @@ export default function App() {
             </>
           ) : (
             <button className="primary" onClick={connect}>
-              Connect MetaMask
+              Connect wallet
             </button>
           )}
         </div>
       </header>
+
+      {picker && (
+        <div className="wallet-picker" onClick={() => setPicker(false)}>
+          <div className="wallet-picker-box" onClick={(e) => e.stopPropagation()}>
+            <h3>Choose a wallet</h3>
+            {wallets.map((w) => (
+              <button key={w.info.rdns} className="wallet-option" onClick={() => connectWith(w.info.rdns)}>
+                {w.info.icon ? <img src={w.info.icon} alt="" width="24" height="24" /> : <span>👛</span>}
+                <span>{w.info.name}</span>
+              </button>
+            ))}
+            <button className="link" onClick={() => setPicker(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
 
       {!readContract && (
         <div className="card warnbox">
@@ -710,7 +743,7 @@ function TableView({ tableId, account, signer, send, busy, notify, onBack }) {
           .
         </p>
       </div>
-      {account === null && <p className="muted center">Connect MetaMask to play. You are watching as a spectator.</p>}
+      {account === null && <p className="muted center">Connect your wallet to play. You are watching as a spectator.</p>}
       {busy && <div className="busy">⏳ {busy}…</div>}
     </div>
   );

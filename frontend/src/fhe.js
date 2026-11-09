@@ -2,6 +2,7 @@
 //  - user decryption: a player decrypts ONLY their own dice (needs an EIP-712 signature)
 //  - public decryption: anyone decrypts the publicly-decryptable verdict and gets a KMS proof
 import { initSDK, createInstance, SepoliaConfig } from "@zama-fhe/relayer-sdk/bundle";
+import { getEth } from "./wallet.js";
 
 let instancePromise = null;
 
@@ -10,7 +11,7 @@ export function getFhevm() {
     instancePromise = (async () => {
       if (!window.relayerSDK) throw new Error("Zama Relayer SDK failed to load from the CDN (check your connection).");
       await initSDK(); // loads the TFHE + KMS WASM
-      return createInstance({ ...SepoliaConfig, network: window.ethereum });
+      return createInstance({ ...SepoliaConfig, network: getEth() || "https://ethereum-sepolia-rpc.publicnode.com" });
     })().catch((e) => {
       instancePromise = null;
       throw e;

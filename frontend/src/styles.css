@@ -88,3 +88,11 @@ ol.history li { margin: 6px 0; font-size: 14px; }
 .toast.ok { border-color: var(--ok); }
 .busy { position: fixed; top: 14px; right: 14px; background: var(--zama); color: #111; padding: 8px 12px; border-radius: 10px; font-weight: 700; }
 footer { margin-top: 30px; color: var(--muted); font-size: 13px; text-align: center; }
+
+/* wallet picker */
+.wallet-picker { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: flex; align-items: center; justify-content: center; z-index: 50; }
+.wallet-picker-box { background: #15171f; border: 1px solid #2a2d3a; border-radius: 14px; padding: 20px; min-width: 280px; display: flex; flex-direction: column; gap: 10px; }
+.wallet-picker-box h3 { margin: 0 0 6px; }
+.wallet-option { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid #2a2d3a; background: #1d2030; color: inherit; cursor: pointer; font-size: 15px; text-align: left; }
+.wallet-option:hover { border-color: #f2d24b; }
+.wallet-picker-box .link { background: none; border: none; color: #9aa0b4; cursor: pointer; margin-top: 4px; }
