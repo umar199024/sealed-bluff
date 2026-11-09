@@ -6,7 +6,7 @@
 //  the environment variable wins if both are set.
 // ============================================================================
 
-export const CONTRACT_ADDRESS_FALLBACK = "0x0000000000000000000000000000000000000000";
+export const CONTRACT_ADDRESS_FALLBACK = "0x6ced40c643Cfb049CB480747469e83AE7a125f4E";
 
 export const CONTRACT_ADDRESS = (import.meta.env.VITE_CONTRACT_ADDRESS || CONTRACT_ADDRESS_FALLBACK).trim();
 
