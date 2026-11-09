@@ -1,0 +1,1018 @@
+[
+ {
+  "inputs": [],
+  "name": "AlreadyRolled",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "AlreadySeated",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "BadConfig",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "BidNotHigher",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "InvalidBid",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "InvalidKMSSignatures",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "NoBidYet",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "NotCreator",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "NotEnoughPlayers",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "NotSeated",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "NotYourTurn",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "PlayerOut",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "TableFull",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "TableNotFound",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "TurnNotExpired",
+  "type": "error"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "enum SealedBluff.Phase",
+    "name": "expected",
+    "type": "uint8"
+   },
+   {
+    "internalType": "enum SealedBluff.Phase",
+    "name": "actual",
+    "type": "uint8"
+   }
+  ],
+  "name": "WrongPhase",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "ZamaProtocolUnsupported",
+  "type": "error"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "round",
+    "type": "uint32"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "bidder",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "quantity",
+    "type": "uint8"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "face",
+    "type": "uint8"
+   }
+  ],
+  "name": "BidPlaced",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "round",
+    "type": "uint32"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "firstBidder",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint64",
+    "name": "deadline",
+    "type": "uint64"
+   }
+  ],
+  "name": "BiddingOpened",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "round",
+    "type": "uint32"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "diceCount",
+    "type": "uint8"
+   }
+  ],
+  "name": "DiceRolled",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "players",
+    "type": "uint8"
+   }
+  ],
+  "name": "GameStarted",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "winner",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint32",
+    "name": "rounds",
+    "type": "uint32"
+   }
+  ],
+  "name": "GameWon",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "round",
+    "type": "uint32"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "challenger",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "bidder",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "quantity",
+    "type": "uint8"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "face",
+    "type": "uint8"
+   },
+   {
+    "indexed": false,
+    "internalType": "bytes32",
+    "name": "verdictHandle",
+    "type": "bytes32"
+   }
+  ],
+  "name": "LiarCalled",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   }
+  ],
+  "name": "PlayerEliminated",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "seat",
+    "type": "uint8"
+   }
+  ],
+  "name": "PlayerJoined",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": false,
+    "internalType": "bytes32[]",
+    "name": "handlesList",
+    "type": "bytes32[]"
+   },
+   {
+    "indexed": false,
+    "internalType": "bytes",
+    "name": "abiEncodedCleartexts",
+    "type": "bytes"
+   }
+  ],
+  "name": "PublicDecryptionVerified",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "round",
+    "type": "uint32"
+   },
+   {
+    "indexed": false,
+    "internalType": "bool",
+    "name": "bidWasTrue",
+    "type": "bool"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "loser",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "loserDiceLeft",
+    "type": "uint8"
+   }
+  ],
+  "name": "RoundResolved",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "round",
+    "type": "uint32"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "starter",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "totalDice",
+    "type": "uint8"
+   }
+  ],
+  "name": "RoundStarted",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "creator",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "maxPlayers",
+    "type": "uint8"
+   },
+   {
+    "indexed": false,
+    "internalType": "bool",
+    "name": "onesWild",
+    "type": "bool"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint32",
+    "name": "turnTimeout",
+    "type": "uint32"
+   }
+  ],
+  "name": "TableCreated",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "round",
+    "type": "uint32"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "staller",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "caller",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "diceLeft",
+    "type": "uint8"
+   }
+  ],
+  "name": "TimeoutPenalty",
+  "type": "event"
+ },
+ {
+  "inputs": [],
+  "name": "MAX_PLAYERS",
+  "outputs": [
+   {
+    "internalType": "uint8",
+    "name": "",
+    "type": "uint8"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "MAX_TURN_TIMEOUT",
+  "outputs": [
+   {
+    "internalType": "uint32",
+    "name": "",
+    "type": "uint32"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "MIN_PLAYERS",
+  "outputs": [
+   {
+    "internalType": "uint8",
+    "name": "",
+    "type": "uint8"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "MIN_TURN_TIMEOUT",
+  "outputs": [
+   {
+    "internalType": "uint32",
+    "name": "",
+    "type": "uint32"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "START_DICE",
+  "outputs": [
+   {
+    "internalType": "uint8",
+    "name": "",
+    "type": "uint8"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   }
+  ],
+  "name": "callLiar",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   }
+  ],
+  "name": "claimTimeout",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "confidentialProtocolId",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint8",
+    "name": "maxPlayers",
+    "type": "uint8"
+   },
+   {
+    "internalType": "bool",
+    "name": "onesWild",
+    "type": "bool"
+   },
+   {
+    "internalType": "uint32",
+    "name": "turnTimeout",
+    "type": "uint32"
+   }
+  ],
+  "name": "createTable",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   }
+  ],
+  "name": "diceCountOf",
+  "outputs": [
+   {
+    "internalType": "uint8",
+    "name": "",
+    "type": "uint8"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   }
+  ],
+  "name": "getChallenger",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   }
+  ],
+  "name": "getDice",
+  "outputs": [
+   {
+    "internalType": "bytes32[5]",
+    "name": "handles",
+    "type": "bytes32[5]"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   }
+  ],
+  "name": "getHistory",
+  "outputs": [
+   {
+    "components": [
+     {
+      "internalType": "uint32",
+      "name": "round",
+      "type": "uint32"
+     },
+     {
+      "internalType": "address",
+      "name": "bidder",
+      "type": "address"
+     },
+     {
+      "internalType": "address",
+      "name": "challenger",
+      "type": "address"
+     },
+     {
+      "internalType": "uint8",
+      "name": "bidQty",
+      "type": "uint8"
+     },
+     {
+      "internalType": "uint8",
+      "name": "bidFace",
+      "type": "uint8"
+     },
+     {
+      "internalType": "bool",
+      "name": "bidWasTrue",
+      "type": "bool"
+     },
+     {
+      "internalType": "bool",
+      "name": "timeout",
+      "type": "bool"
+     },
+     {
+      "internalType": "address",
+      "name": "loser",
+      "type": "address"
+     },
+     {
+      "internalType": "uint8",
+      "name": "loserDiceLeft",
+      "type": "uint8"
+     }
+    ],
+    "internalType": "struct SealedBluff.RoundResult[]",
+    "name": "",
+    "type": "tuple[]"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   }
+  ],
+  "name": "getPlayers",
+  "outputs": [
+   {
+    "internalType": "address[]",
+    "name": "players",
+    "type": "address[]"
+   },
+   {
+    "internalType": "uint8[]",
+    "name": "diceCounts",
+    "type": "uint8[]"
+   },
+   {
+    "internalType": "bool[]",
+    "name": "rolled",
+    "type": "bool[]"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   }
+  ],
+  "name": "getTable",
+  "outputs": [
+   {
+    "components": [
+     {
+      "internalType": "address",
+      "name": "creator",
+      "type": "address"
+     },
+     {
+      "internalType": "uint8",
+      "name": "maxPlayers",
+      "type": "uint8"
+     },
+     {
+      "internalType": "bool",
+      "name": "onesWild",
+      "type": "bool"
+     },
+     {
+      "internalType": "uint32",
+      "name": "turnTimeout",
+      "type": "uint32"
+     },
+     {
+      "internalType": "enum SealedBluff.Phase",
+      "name": "phase",
+      "type": "uint8"
+     },
+     {
+      "internalType": "uint32",
+      "name": "round",
+      "type": "uint32"
+     },
+     {
+      "internalType": "uint8",
+      "name": "currentTurn",
+      "type": "uint8"
+     },
+     {
+      "internalType": "uint8",
+      "name": "alivePlayers",
+      "type": "uint8"
+     },
+     {
+      "internalType": "uint8",
+      "name": "totalDice",
+      "type": "uint8"
+     },
+     {
+      "internalType": "uint8",
+      "name": "bidQty",
+      "type": "uint8"
+     },
+     {
+      "internalType": "uint8",
+      "name": "bidFace",
+      "type": "uint8"
+     },
+     {
+      "internalType": "address",
+      "name": "lastBidder",
+      "type": "address"
+     },
+     {
+      "internalType": "address",
+      "name": "challenger",
+      "type": "address"
+     },
+     {
+      "internalType": "uint64",
+      "name": "turnDeadline",
+      "type": "uint64"
+     },
+     {
+      "internalType": "address",
+      "name": "winner",
+      "type": "address"
+     },
+     {
+      "internalType": "bytes32",
+      "name": "verdictHandle",
+      "type": "bytes32"
+     },
+     {
+      "internalType": "uint8",
+      "name": "playerCount",
+      "type": "uint8"
+     }
+    ],
+    "internalType": "struct SealedBluff.TableView",
+    "name": "v",
+    "type": "tuple"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   }
+  ],
+  "name": "getVerdictHandle",
+  "outputs": [
+   {
+    "internalType": "bytes32",
+    "name": "",
+    "type": "bytes32"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   }
+  ],
+  "name": "joinTable",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint8",
+    "name": "quantity",
+    "type": "uint8"
+   },
+   {
+    "internalType": "uint8",
+    "name": "face",
+    "type": "uint8"
+   }
+  ],
+  "name": "placeBid",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "internalType": "bool",
+    "name": "bidWasTrue",
+    "type": "bool"
+   },
+   {
+    "internalType": "bytes",
+    "name": "decryptionProof",
+    "type": "bytes"
+   }
+  ],
+  "name": "resolveChallenge",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   },
+   {
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   }
+  ],
+  "name": "rollDice",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "tableId",
+    "type": "uint256"
+   }
+  ],
+  "name": "startGame",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "tableCount",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ }
+]
