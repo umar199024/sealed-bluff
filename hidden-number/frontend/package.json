@@ -1,0 +1,25 @@
+{
+  "name": "hidden-number-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "sync-abi": "node scripts/sync-abi.mjs"
+  },
+  "dependencies": {
+    "@zama-fhe/relayer-sdk": "0.4.5",
+    "ethers": "^6.16.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^6.3.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

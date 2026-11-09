@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Number — confidential guessing game on Zama FHEVM</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!--
+      Zama Relayer SDK (UMD build from Zama's CDN). It exposes window.relayerSDK, which
+      `@zama-fhe/relayer-sdk/bundle` re-exports. Loading it from the CDN avoids bundling the
+      large WASM files. Keep this version equal to the one in package.json.
+    -->
+    <script src="https://cdn.zama.org/relayer-sdk-js/0.4.5/relayer-sdk-js.umd.cjs" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

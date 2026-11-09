@@ -1,0 +1,288 @@
+[
+ {
+  "inputs": [],
+  "name": "NoActiveGame",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "NoAttemptsLeft",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "OutOfRange",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "ZamaProtocolUnsupported",
+  "type": "error"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "gameNumber",
+    "type": "uint32"
+   }
+  ],
+  "name": "GameStarted",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "gameNumber",
+    "type": "uint32"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "attempt",
+    "type": "uint8"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "guess",
+    "type": "uint8"
+   },
+   {
+    "indexed": false,
+    "internalType": "bytes32",
+    "name": "hintHandle",
+    "type": "bytes32"
+   }
+  ],
+  "name": "Guessed",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "gameNumber",
+    "type": "uint32"
+   },
+   {
+    "indexed": false,
+    "internalType": "bytes32",
+    "name": "secretHandle",
+    "type": "bytes32"
+   }
+  ],
+  "name": "SecretRevealed",
+  "type": "event"
+ },
+ {
+  "inputs": [],
+  "name": "HINT_CORRECT",
+  "outputs": [
+   {
+    "internalType": "uint8",
+    "name": "",
+    "type": "uint8"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "HINT_HIGHER",
+  "outputs": [
+   {
+    "internalType": "uint8",
+    "name": "",
+    "type": "uint8"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "HINT_LOWER",
+  "outputs": [
+   {
+    "internalType": "uint8",
+    "name": "",
+    "type": "uint8"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "MAX_ATTEMPTS",
+  "outputs": [
+   {
+    "internalType": "uint8",
+    "name": "",
+    "type": "uint8"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "MAX_NUMBER",
+  "outputs": [
+   {
+    "internalType": "uint8",
+    "name": "",
+    "type": "uint8"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   }
+  ],
+  "name": "attemptsLeft",
+  "outputs": [
+   {
+    "internalType": "uint8",
+    "name": "",
+    "type": "uint8"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "confidentialProtocolId",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "player",
+    "type": "address"
+   }
+  ],
+  "name": "getGame",
+  "outputs": [
+   {
+    "components": [
+     {
+      "internalType": "uint32",
+      "name": "gameNumber",
+      "type": "uint32"
+     },
+     {
+      "internalType": "bool",
+      "name": "active",
+      "type": "bool"
+     },
+     {
+      "internalType": "bool",
+      "name": "revealed",
+      "type": "bool"
+     },
+     {
+      "internalType": "uint8",
+      "name": "attempts",
+      "type": "uint8"
+     },
+     {
+      "internalType": "uint8[]",
+      "name": "guesses",
+      "type": "uint8[]"
+     },
+     {
+      "internalType": "bytes32[]",
+      "name": "hintHandles",
+      "type": "bytes32[]"
+     },
+     {
+      "internalType": "bytes32",
+      "name": "wonHandle",
+      "type": "bytes32"
+     },
+     {
+      "internalType": "bytes32",
+      "name": "secretHandle",
+      "type": "bytes32"
+     }
+    ],
+    "internalType": "struct HiddenNumber.GameView",
+    "name": "v",
+    "type": "tuple"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint8",
+    "name": "value",
+    "type": "uint8"
+   }
+  ],
+  "name": "guess",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "newGame",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "revealSecret",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ }
+]
